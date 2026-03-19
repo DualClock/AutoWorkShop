@@ -18,7 +18,7 @@ namespace AutoWorkshop.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal PriceAtMoment { get; set; }
 
-        // Навигационные свойства
+
         public virtual Order? Order { get; set; }
         public virtual Part? Part { get; set; }
     }

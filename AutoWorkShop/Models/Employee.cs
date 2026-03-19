@@ -25,7 +25,7 @@ namespace AutoWorkshop.Models
 
         public int? DepartmentId { get; set; }
 
-        // Навигационные свойства
+
         public virtual Department? Department { get; set; }
         public virtual User? UserAccount { get; set; }
         public virtual ICollection<Order>? Orders { get; set; }

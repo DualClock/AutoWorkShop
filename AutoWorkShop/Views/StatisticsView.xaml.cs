@@ -4,6 +4,8 @@ using AutoWorkshop.Services;
 using AutoWorkshop.Models;
 using System.Linq;
 using System.IO;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoWorkshop.Views
 {
@@ -21,8 +23,13 @@ namespace AutoWorkshop.Views
         {
             using (var db = new AppDbContext())
             {
-                var stats = db.Cars
-                    .Join(db.Orders, c => c.Id, o => o.CarId, (c, o) => new { Car = c, Order = o })
+                var fromDate = FromDatePicker.SelectedDate ?? DateTime.Now.AddMonths(-1);
+                var toDate = ToDatePicker.SelectedDate ?? DateTime.Now;
+                toDate = toDate.AddDays(1);
+
+                var stats = db.Orders
+                    .Where(o => o.CreatedDate >= fromDate && o.CreatedDate <= toDate)
+                    .Join(db.Cars, o => o.CarId, c => c.Id, (o, c) => new { Order = o, Car = c })
                     .GroupBy(x => x.Car.Brand)
                     .Select(g => new
                     {
@@ -30,6 +37,7 @@ namespace AutoWorkshop.Views
                         Count = g.Count(),
                         Revenue = g.Sum(x => x.Order.TotalCost)
                     })
+                    .OrderByDescending(s => s.Revenue)
                     .ToList();
 
                 StatsDataGrid.ItemsSource = stats;
@@ -47,7 +55,43 @@ namespace AutoWorkshop.Views
         {
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                 "Статистика_Отчёт.txt");
-            File.WriteAllText(path, $"Статистика за период\n{FromDatePicker.SelectedDate} - {ToDatePicker.SelectedDate}");
+
+            using (var db = new AppDbContext())
+            {
+                var fromDate = FromDatePicker.SelectedDate ?? DateTime.Now.AddMonths(-1);
+                var toDate = ToDatePicker.SelectedDate ?? DateTime.Now;
+
+                var stats = db.Orders
+                    .Where(o => o.CreatedDate >= fromDate && o.CreatedDate <= toDate)
+                    .Join(db.Cars, o => o.CarId, c => c.Id, (o, c) => new { Order = o, Car = c })
+                    .GroupBy(x => x.Car.Brand)
+                    .Select(g => new
+                    {
+                        Brand = g.Key ?? "Не указана",
+                        Count = g.Count(),
+                        Revenue = g.Sum(x => x.Order.TotalCost)
+                    })
+                    .OrderByDescending(s => s.Revenue)
+                    .ToList();
+
+                var report = new StringBuilder();
+                report.AppendLine("СТАТИСТИКА ПО МАРКАМ АВТОМОБИЛЕЙ");
+                report.AppendLine("=================================");
+                report.AppendLine($"Период: {fromDate:dd.MM.yyyy} по {toDate:dd.MM.yyyy}");
+                report.AppendLine();
+                report.AppendLine($"Всего марок: {stats.Count}");
+                report.AppendLine($"Общая выручка: {stats.Sum(s => s.Revenue):F2} руб.");
+                report.AppendLine();
+                report.AppendLine("ДЕТАЛИЗАЦИЯ:");
+                report.AppendLine("------------");
+
+                foreach (var stat in stats)
+                {
+                    report.AppendLine($"{stat.Brand}: {stat.Count} ремонтов, выручка {stat.Revenue:F2} руб.");
+                }
+
+                File.WriteAllText(path, report.ToString(), Encoding.UTF8);
+            }
 
             MessageBox.Show($"Отчёт сохранён:\n{path}", "Информация",
                 MessageBoxButton.OK, MessageBoxImage.Information);

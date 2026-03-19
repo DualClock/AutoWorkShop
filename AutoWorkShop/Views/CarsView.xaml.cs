@@ -34,6 +34,25 @@ namespace AutoWorkshop.Views
             }
         }
 
+        private void EditCar_Click(object sender, RoutedEventArgs e)
+        {
+            if (CarsDataGrid.SelectedItem is Car car)
+            {
+                var dialog = new AddCarDialog(car);
+                if (dialog.ShowDialog() == true)
+                {
+                    LoadCars();
+                    MessageBox.Show("Данные автомобиля обновлены!", "Информация",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите автомобиль для редактирования!", "Предупреждение",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
         private void DeleteCar_Click(object sender, RoutedEventArgs e)
         {
             if (CarsDataGrid.SelectedItem is Car car)
@@ -45,9 +64,20 @@ namespace AutoWorkshop.Views
                 {
                     using (var db = new AppDbContext())
                     {
-                        var toDelete = db.Cars.Find(car.Id);
+                        var toDelete = db.Cars
+                            .Include(c => c.Orders)
+                            .FirstOrDefault(c => c.Id == car.Id);
+
                         if (toDelete != null)
                         {
+
+                            if (toDelete.Orders != null && toDelete.Orders.Any())
+                            {
+                                MessageBox.Show($"Невозможно удалить автомобиль: с ним связаны заказы ({toDelete.Orders.Count()}). Сначала удалите или переназначьте заказы.",
+                                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
+
                             db.Cars.Remove(toDelete);
                             db.SaveChanges();
                             LoadCars();

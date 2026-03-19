@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using AutoWorkshop.Services;
 
 namespace AutoWorkshop.Views
 {
@@ -7,7 +8,17 @@ namespace AutoWorkshop.Views
         public MainWindow()
         {
             InitializeComponent();
+            UpdateUserInfo();
             UpdateStatusBar();
+        }
+
+        private void UpdateUserInfo()
+        {
+            if (UserService.CurrentUser != null)
+            {
+                var roleName = UserService.GetRoleName(UserService.CurrentUser.Role);
+                UserNameText.Text = $"{UserService.CurrentUser.Login} ({roleName})";
+            }
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
@@ -17,6 +28,7 @@ namespace AutoWorkshop.Views
 
             if (result == MessageBoxResult.Yes)
             {
+                UserService.Logout();
                 var loginWindow = new LoginWindow();
                 loginWindow.Show();
                 this.Close();
@@ -25,7 +37,7 @@ namespace AutoWorkshop.Views
 
         private void UpdateStatusBar()
         {
-            StatusBarText.Text = $"Готов к работе | Пользователь: Администратор | {DateTime.Now:dd.MM.yyyy HH:mm}";
+            StatusBarText.Text = $"Готов к работе | Пользователь: {UserNameText.Text} | {DateTime.Now:dd.MM.yyyy HH:mm}";
         }
     }
 }

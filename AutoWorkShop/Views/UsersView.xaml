@@ -1,0 +1,35 @@
+<UserControl x:Class="AutoWorkshop.Views.UsersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button x:Name="AddUserButton" Content="➕ Добавить" Width="110" Height="30" Margin="0,0,5,0"
+                    Background="#007ACC" Foreground="White" Click="AddUser_Click"/>
+            <Button x:Name="EditUserButton" Content="✏️ Изменить" Width="110" Height="30" Margin="0,0,5,0"
+                    Background="#FFA500" Foreground="White" Click="EditUser_Click"/>
+            <Button x:Name="DeleteUserButton" Content="🗑️ Удалить" Width="110" Height="30" Margin="0,0,5,0"
+                    Background="#DC3545" Foreground="White" Click="DeleteUser_Click"/>
+            <Button x:Name="BlockUserButton" Content="🚫 Заблокировать" Width="120" Height="30"
+                    Background="#6C757D" Foreground="White" Click="BlockUser_Click"/>
+        </StackPanel>
+
+        
+        <DataGrid Grid.Row="1" x:Name="UsersDataGrid" AutoGenerateColumns="False" IsReadOnly="True"
+                  SelectionChanged="UsersDataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="150"/>
+                <DataGridTextColumn Header="Роль" Binding="{Binding RoleName}" Width="120"/>
+                <DataGridTextColumn Header="Сотрудник" Binding="{Binding EmployeeName}" Width="200"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding StatusText}" Width="100"/>
+                <DataGridTextColumn Header="Последний вход" Binding="{Binding LastLogin, StringFormat={}{0:dd.MM.yyyy HH:mm}}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

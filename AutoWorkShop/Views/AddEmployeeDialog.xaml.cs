@@ -2,6 +2,7 @@
 using AutoWorkshop.Services;
 using AutoWorkshop.Models;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoWorkshop.Views
 {
@@ -66,11 +67,17 @@ namespace AutoWorkshop.Views
                 }
                 else
                 {
-                    _existingEmployee.FullName = FullNameTextBox.Text;
-                    _existingEmployee.Position = PositionTextBox.Text;
-                    _existingEmployee.Phone = PhoneTextBox.Text;
-                    _existingEmployee.Email = EmailTextBox.Text;
-                    _existingEmployee.DepartmentId = (DepartmentComboBox.SelectedItem as Department)?.Id;
+
+                    var existing = db.Employees.Find(_existingEmployee.Id);
+                    if (existing != null)
+                    {
+                        existing.FullName = FullNameTextBox.Text;
+                        existing.Position = PositionTextBox.Text;
+                        existing.Phone = PhoneTextBox.Text;
+                        existing.Email = EmailTextBox.Text;
+                        existing.DepartmentId = (DepartmentComboBox.SelectedItem as Department)?.Id;
+                        db.Employees.Update(existing);
+                    }
                 }
                 db.SaveChanges();
             }

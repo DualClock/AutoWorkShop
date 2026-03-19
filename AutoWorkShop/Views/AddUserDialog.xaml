@@ -1,0 +1,71 @@
+<Window x:Class="AutoWorkshop.Views.AddUserDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Добавление пользователя" Height="520" Width="450"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="#F0F0F0">
+
+    <Border Background="White" CornerRadius="10" Margin="20"
+            BorderBrush="#007ACC" BorderThickness="2">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid Margin="25">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="👤 Информация о пользователе"
+                           FontSize="20" FontWeight="Bold" Foreground="#333"
+                           Margin="0,0,0,20"/>
+
+                <StackPanel Grid.Row="1" Margin="0,0,0,15">
+                    <TextBlock Text="Логин *" FontSize="14" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,5"/>
+                    <TextBox x:Name="LoginTextBox" Height="40" FontSize="15"
+                             Background="#FAFAFA" BorderBrush="#CCC" BorderThickness="1"
+                             Padding="12,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Margin="0,0,0,15">
+                    <TextBlock Text="Пароль *" FontSize="14" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,5"/>
+                    <PasswordBox x:Name="PasswordBox" Height="40" FontSize="15"
+                                 Background="#FAFAFA" BorderBrush="#CCC" BorderThickness="1"
+                                 Padding="12,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" Margin="0,0,0,15">
+                    <TextBlock Text="Роль *" FontSize="14" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="RoleComboBox" Height="40" FontSize="15"
+                              Background="#FAFAFA" BorderBrush="#CCC" BorderThickness="1"
+                              Padding="10,0,0,0">
+                        <ComboBoxItem Content="Администратор" Tag="Admin"/>
+                        <ComboBoxItem Content="Менеджер" Tag="Manager"/>
+                        <ComboBoxItem Content="Рабочий" Tag="Worker"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="4" Margin="0,0,0,20">
+                    <TextBlock Text="Сотрудник" FontSize="14" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="EmployeeComboBox" Height="40" FontSize="15"
+                              Background="#FAFAFA" BorderBrush="#CCC" BorderThickness="1"
+                              Padding="10,0,0,0">
+                        <ComboBoxItem Content="Не назначен" Tag=""/>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Отмена" Width="110" Height="40" Margin="0,0,15,0"
+                            Background="#6C757D" Foreground="White" FontSize="15"
+                            Click="CancelButton_Click"/>
+                    <Button Content="Сохранить" Width="130" Height="40"
+                            Background="#007ACC" Foreground="White" FontSize="15" FontWeight="SemiBold"
+                            Click="SaveButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Border>
+</Window>

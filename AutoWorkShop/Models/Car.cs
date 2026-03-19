@@ -26,7 +26,7 @@ namespace AutoWorkshop.Models
 
         public int? Year { get; set; }
 
-        // Навигационные свойства
+
         public virtual Client? Client { get; set; }
         public virtual ICollection<Order>? Orders { get; set; }
     }

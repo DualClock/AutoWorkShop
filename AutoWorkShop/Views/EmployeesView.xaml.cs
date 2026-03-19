@@ -64,9 +64,29 @@ namespace AutoWorkshop.Views
                 {
                     using (var db = new AppDbContext())
                     {
-                        var toDelete = db.Employees.Find(employee.Id);
+                        var toDelete = db.Employees
+                            .Include(emp => emp.Orders)
+                            .Include(emp => emp.UserAccount)
+                            .FirstOrDefault(emp => emp.Id == employee.Id);
+
                         if (toDelete != null)
                         {
+
+                            if (toDelete.Orders != null && toDelete.Orders.Any())
+                            {
+                                MessageBox.Show($"Невозможно удалить сотрудника: у него есть активные заказы ({toDelete.Orders.Count()}). Сначала удалите или переназначьте заказы.",
+                                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
+
+
+                            if (toDelete.UserAccount != null)
+                            {
+                                MessageBox.Show($"Невозможно удалить сотрудника: у него есть учётная запись в системе ({toDelete.UserAccount.Login}). Сначала удалите учётную запись.",
+                                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
+
                             db.Employees.Remove(toDelete);
                             db.SaveChanges();
                             LoadEmployees();

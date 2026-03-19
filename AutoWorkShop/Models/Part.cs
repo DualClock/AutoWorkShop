@@ -24,7 +24,7 @@ namespace AutoWorkshop.Models
 
         public int MinQuantity { get; set; } = 5;
 
-        // Навигационное свойство
+
         public virtual ICollection<OrderPart>? OrderParts { get; set; }
     }
 }

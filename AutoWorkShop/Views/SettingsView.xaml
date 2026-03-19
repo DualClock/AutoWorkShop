@@ -35,10 +35,11 @@
             </Grid>
         </GroupBox>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="💾 Сохранить" Width="120" Height="35" Margin="0,0,10,0" 
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button Content="💾 Сохранить" Width="120" Height="35" Margin="0,0,10,0"
                     Background="#007ACC" Foreground="White" Click="Save_Click"/>
-            <Button Content="🔄 Сбросить" Width="100" Height="35" Click="Reset_Click"/>
+            <Button Content="🔄 Сбросить" Width="100" Height="35" Margin="0,0,0,0"
+                    Background="#6C757D" Foreground="White" Click="Reset_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

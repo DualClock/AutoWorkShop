@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AutoWorkshop.Models  // ← ИСПРАВЬ!
+namespace AutoWorkshop.Models
 {
     [Table("Clients")]
     public class Client

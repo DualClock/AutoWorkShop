@@ -22,7 +22,7 @@ namespace AutoWorkshop.Models
         [MaxLength(50)]
         public string? ReceiptNumber { get; set; }
 
-        // Навигационное свойство
+
         public virtual Order? Order { get; set; }
     }
 }

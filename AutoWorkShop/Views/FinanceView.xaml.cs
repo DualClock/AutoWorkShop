@@ -4,6 +4,7 @@ using AutoWorkshop.Services;
 using AutoWorkshop.Models;
 using System.Linq;
 using System.IO;
+using System.Text;
 
 namespace AutoWorkshop.Views
 {
@@ -44,7 +45,7 @@ namespace AutoWorkshop.Views
                 {
                     content += $"{o.Id};{o.CreatedDate:dd.MM.yyyy};{o.TotalCost};{o.Status}\n";
                 }
-                File.WriteAllText(path, content);
+                File.WriteAllText(path, content, Encoding.UTF8);
             }
 
             MessageBox.Show($"Отчёт экспортирован:\n{path}", "Информация",

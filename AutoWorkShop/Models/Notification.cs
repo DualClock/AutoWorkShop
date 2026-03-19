@@ -23,7 +23,7 @@ namespace AutoWorkshop.Models
         [MaxLength(20)]
         public string? Type { get; set; }
 
-        // Навигационное свойство
+
         public virtual User? User { get; set; }
     }
 }

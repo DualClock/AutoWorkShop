@@ -13,9 +13,9 @@ using System.Windows.Shapes;
 
 namespace AutoWorkshop.Views
 {
-    /// <summary>
-    /// Логика взаимодействия для HelpView.xaml
-    /// </summary>
+
+
+
     public partial class HelpView : UserControl
     {
         public HelpView()

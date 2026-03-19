@@ -13,7 +13,7 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <!-- Верхняя панель -->
+        
         <Border Grid.Row="0" Background="#007ACC" BorderThickness="0,0,0,1" BorderBrush="#005A9E">
             <Grid Margin="20,0">
                 <Grid.ColumnDefinitions>
@@ -34,11 +34,11 @@
             </Grid>
         </Border>
 
-        <!-- Основная область с вкладками -->
+        
         <TabControl Grid.Row="1" Margin="20" Background="White" BorderThickness="0"
                     x:Name="MainTabControl">
 
-            <!-- Вкладка 1: Главная -->
+            
             <TabItem Header="📋 Главная" FontSize="14">
                 <Grid Margin="20">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -55,74 +55,79 @@
                 </Grid>
             </TabItem>
 
-            <!-- Вкладка 2: Клиенты -->
+            
             <TabItem Header="👥 Клиенты" FontSize="14">
                 <views:ClientsView/>
             </TabItem>
 
-            <!-- Вкладка 3: Заказы -->
+            
             <TabItem Header="📝 Заказы" FontSize="14">
                 <views:OrdersView/>
             </TabItem>
 
-            <!-- Вкладка 4: Отделы -->
+            
             <TabItem Header="🏭 Отделы" FontSize="14">
                 <views:DepartmentsView/>
             </TabItem>
 
-            <!-- Вкладка 5: Запчасти -->
+            
             <TabItem Header="📦 Запчасти" FontSize="14">
                 <views:PartsView/>
             </TabItem>
 
-            <!-- Вкладка 6: Автомобили -->
+            
             <TabItem Header="🚗 Автомобили" FontSize="14">
                 <views:CarsView/>
             </TabItem>
 
-            <!-- Вкладка 7: Сотрудники -->
+            
             <TabItem Header="👨‍🔧 Сотрудники" FontSize="14">
                 <views:EmployeesView/>
             </TabItem>
 
-            <!-- Вкладка 8: Финансы -->
+            
             <TabItem Header="💰 Финансы" FontSize="14">
                 <views:FinanceView/>
             </TabItem>
 
-            <!-- Вкладка 9: Статистика -->
+            
             <TabItem Header="📊 Статистика" FontSize="14">
                 <views:StatisticsView/>
             </TabItem>
 
-            <!-- Вкладка 10: Экспорт данных -->
+            
             <TabItem Header="📤 Экспорт данных" FontSize="14">
                 <views:ExportView/>
             </TabItem>
 
-            <!-- Вкладка 11: Настройки -->
+            
+            <TabItem Header="👥 Пользователи" FontSize="14">
+                <views:UsersView/>
+            </TabItem>
+
+            
             <TabItem Header="⚙️ Настройки" FontSize="14">
                 <views:SettingsView/>
             </TabItem>
 
-            <!-- Вкладка 12: Резервное копирование -->
+            
             <TabItem Header="💾 Резервное копирование" FontSize="14">
                 <views:BackupView/>
             </TabItem>
 
-            <!-- Вкладка 13: Уведомления -->
+            
             <TabItem Header="🔔 Уведомления" FontSize="14">
                 <views:NotificationsView/>
             </TabItem>
 
-            <!-- Вкладка 14: Справка -->
+            
             <TabItem Header="❓ Справка" FontSize="14">
                 <views:HelpView/>
             </TabItem>
 
         </TabControl>
 
-        <!-- Нижняя строка состояния -->
+        
         <Border Grid.Row="2" Background="#333" BorderThickness="0,1,0,0" BorderBrush="#555">
             <TextBlock x:Name="StatusBarText" Text="Готов к работе" FontSize="12" 
                        Foreground="White" VerticalAlignment="Center" Margin="20,0"/>

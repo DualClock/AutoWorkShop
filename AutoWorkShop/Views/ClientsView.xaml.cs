@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using AutoWorkshop.Services;
 using AutoWorkshop.Models;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoWorkshop.Views
 {
@@ -63,6 +64,16 @@ namespace AutoWorkshop.Views
                 {
                     using (var db = new AppDbContext())
                     {
+
+                        var hasOrders = db.Orders.Any(o => o.Car.ClientId == client.Id);
+
+                        if (hasOrders)
+                        {
+                            MessageBox.Show("Невозможно удалить клиента: у него есть активные заказы. Сначала удалите или закройте заказы.",
+                                "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
                         var toDelete = db.Clients.Find(client.Id);
                         if (toDelete != null)
                         {

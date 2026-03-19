@@ -26,7 +26,7 @@ namespace AutoWorkshop.Views
 
                 using (var db = new AppDbContext())
                 {
-                    // Проверяем подключение к БД
+
                     var canConnect = db.Database.CanConnect();
                     if (!canConnect)
                     {
@@ -36,7 +36,7 @@ namespace AutoWorkshop.Views
                         return;
                     }
 
-                    var user = db.Users.FirstOrDefault(u => u.Login == login && u.PasswordHash == password);
+                    var user = db.Users.FirstOrDefault(u => u.Login == login);
 
                     if (user != null)
                     {
@@ -46,9 +46,36 @@ namespace AutoWorkshop.Views
                             return;
                         }
 
-                        var mainWindow = new MainWindow();
-                        mainWindow.Show();
-                        this.Close();
+
+                        bool passwordValid = PasswordHelper.VerifyPassword(password, user.PasswordHash);
+
+
+                        bool legacyValid = user.PasswordHash == password;
+
+                        if (passwordValid || legacyValid)
+                        {
+
+                            try
+                            {
+                                user.LastLogin = DateTime.Now;
+                                db.Users.Update(user);
+                                db.SaveChanges();
+                            }
+                            catch
+                            {
+
+                            }
+
+                            UserService.SetCurrentUser(user);
+
+                            var mainWindow = new MainWindow();
+                            mainWindow.Show();
+                            this.Close();
+                        }
+                        else
+                        {
+                            ErrorText.Text = "Неверный логин или пароль";
+                        }
                     }
                     else
                     {

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using AutoWorkshop.Services;
 using AutoWorkshop.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoWorkshop.Views
 {
@@ -36,7 +37,7 @@ namespace AutoWorkshop.Views
             {
                 if (_existingClient == null)
                 {
-                    // Новый клиент
+
                     var client = new Client
                     {
                         FullName = FullNameTextBox.Text,
@@ -49,11 +50,16 @@ namespace AutoWorkshop.Views
                 }
                 else
                 {
-                    // Редактирование
-                    _existingClient.FullName = FullNameTextBox.Text;
-                    _existingClient.Phone = PhoneTextBox.Text;
-                    _existingClient.Email = EmailTextBox.Text;
-                    _existingClient.Address = AddressTextBox.Text;
+
+                    var existing = db.Clients.Find(_existingClient.Id);
+                    if (existing != null)
+                    {
+                        existing.FullName = FullNameTextBox.Text;
+                        existing.Phone = PhoneTextBox.Text;
+                        existing.Email = EmailTextBox.Text;
+                        existing.Address = AddressTextBox.Text;
+                        db.Clients.Update(existing);
+                    }
                 }
                 db.SaveChanges();
             }

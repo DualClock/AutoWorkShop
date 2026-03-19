@@ -26,7 +26,9 @@ namespace AutoWorkshop.Models
 
         public bool IsActive { get; set; } = true;
 
-        // Навигационные свойства
+        public DateTime? LastLogin { get; set; }
+
+
         public virtual Employee? Employee { get; set; }
         public virtual ICollection<Notification>? Notifications { get; set; }
     }
