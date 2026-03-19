@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="AutoWorkshop.Views.CarsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
+            <Button Content="➕ Добавить автомобиль" Width="170" Height="35" Margin="0,0,10,0" 
+                    Background="#007ACC" Foreground="White" Click="AddCar_Click"/>
+            <Button Content="🗑️ Удалить выбранный" Width="150" Height="35" Margin="0,0,10,0" 
+                    Background="#DC3545" Foreground="White" Click="DeleteCar_Click"/>
+            <Button Content="🔄 Обновить" Width="100" Height="35" Click="Refresh_Click"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" x:Name="CarsDataGrid" AutoGenerateColumns="False" 
+                  IsReadOnly="True" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Клиент" Binding="{Binding Client.FullName}" Width="150"/>
+                <DataGridTextColumn Header="Марка" Binding="{Binding Brand}" Width="100"/>
+                <DataGridTextColumn Header="Модель" Binding="{Binding Model}" Width="100"/>
+                <DataGridTextColumn Header="VIN" Binding="{Binding VIN}" Width="150"/>
+                <DataGridTextColumn Header="Гос. номер" Binding="{Binding PlateNumber}" Width="120"/>
+                <DataGridTextColumn Header="Год" Binding="{Binding Year}" Width="60"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="AutoWorkshop.Views.DepartmentsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Левая панель: Отделы -->
+        <GroupBox Grid.Column="0" Header="Отделы" Margin="0,0,20,0">
+            <ListBox x:Name="DepartmentsListBox" SelectionChanged="DepartmentsListBox_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" FontSize="16" Margin="5"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+
+        <!-- Правая панель: Сотрудники -->
+        <GroupBox Grid.Column="1" Header="Сотрудники отдела">
+            <DataGrid x:Name="EmployeesDataGrid" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="*"/>
+                    <DataGridTextColumn Header="Должность" Binding="{Binding Position}" Width="150"/>
+                    <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="120"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</UserControl>
