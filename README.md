@@ -238,7 +238,7 @@ AutoWorkshopDB
 | **Parts** | Запчасти | Id, Name, Article, Price, Quantity, MinQuantity |
 | **Orders** | Заказы | Id, CarId, EmployeeId, Description, Status, TotalCost |
 | **OrderParts** | Запчасти в заказе | Id, OrderId, PartId, Quantity, Price |
-| **Users** | Пользователи | Id, Login, PasswordHash, Role, EmployeeId, IsActive |
+| **Users** | Пользователи | Id, Login, Password, Role, EmployeeId, IsActive |
 | **Receipts** | Квитанции | Id, OrderId, Amount, PaymentDate, PaymentMethod |
 | **Notifications** | Уведомления | Id, UserId, Message, IsRead, CreatedDate, Type |
 | **Settings** | Настройки | Id, KeyName, Value, Description |
