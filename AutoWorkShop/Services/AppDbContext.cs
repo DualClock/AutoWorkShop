@@ -1,10 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using AutoWorkshop.Models;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace AutoWorkshop.Services
 {
     public class AppDbContext : DbContext
     {
+        private static readonly string ConnectionString;
+
+        static AppDbContext()
+        {
+            // Читаем строку подключения из appsettings.json
+            var basePath = Path.GetDirectoryName(System.AppContext.BaseDirectory) ?? Directory.GetCurrentDirectory();
+            var configPath = Path.Combine(basePath, "appsettings.json");
+
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(basePath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
+                .Build();
+
+            ConnectionString = configuration.GetConnectionString("DefaultConnection") 
+                ?? "Data Source=(localdb)\\MSSQLLocalDB;Database=AutoWorkshopDB;Integrated Security=True;TrustServerCertificate=True;";
+        }
+
         public AppDbContext() { }
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
@@ -26,8 +45,7 @@ namespace AutoWorkshop.Services
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(
-                    "Data Source=(localdb)\\MSSQLLocalDB;Database=AutoWorkshopDB;Integrated Security=True;TrustServerCertificate=True;");
+                optionsBuilder.UseSqlServer(ConnectionString);
             }
         }
 
