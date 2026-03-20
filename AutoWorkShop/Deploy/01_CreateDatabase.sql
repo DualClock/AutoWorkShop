@@ -114,7 +114,7 @@ GO
 CREATE TABLE Users (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Login NVARCHAR(50) NOT NULL UNIQUE,
-    PasswordHash NVARCHAR(255) NOT NULL,
+    Password NVARCHAR(255) NOT NULL,
     Role NVARCHAR(20) NOT NULL,
     EmployeeId INT,
     IsActive BIT NOT NULL DEFAULT 1,
@@ -189,10 +189,10 @@ INSERT INTO Employees (FullName, Position, Phone, Email, DepartmentId) VALUES
 GO
 
 -- Пользователи (пароль: admin123 для админа, password123 для остальных)
-INSERT INTO Users (Login, PasswordHash, Role, EmployeeId, IsActive) VALUES
-('admin', '$2a$11$rMfX6bqQp7kGZvLqKJXwW.8hH5vN9qL2xK4jT6wR3sU1vY8zA9bCd', 'Admin', 1, 1),
-('ivanov', '$2a$11$rMfX6bqQp7kGZvLqKJXwW.8hH5vN9qL2xK4jT6wR3sU1vY8zA9bCd', 'Manager', 2, 1),
-('petrov', '$2a$11$rMfX6bqQp7kGZvLqKJXwW.8hH5vN9qL2xK4jT6wR3sU1vY8zA9bCd', 'Worker', 3, 1);
+INSERT INTO Users (Login, Password, Role, EmployeeId, IsActive) VALUES
+('admin', 'admin123', 'Администратор', 1, 1),
+('ivanov', 'password123', 'Мастер', 2, 1),
+('petrov', 'password123', 'Механик', 3, 1);
 GO
 
 -- Запчасти

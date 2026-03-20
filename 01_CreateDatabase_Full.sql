@@ -139,7 +139,7 @@ GO
 CREATE TABLE Users (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Login NVARCHAR(50) NOT NULL UNIQUE,
-    PasswordHash NVARCHAR(255) NOT NULL,
+    Password NVARCHAR(255) NOT NULL,
     Role NVARCHAR(20) NOT NULL,
     EmployeeId INT,
     IsActive BIT NOT NULL DEFAULT 1,
@@ -325,12 +325,12 @@ PRINT 'Заполнение Users...';
 -- admin / admin123
 -- master / master123
 -- mechanic / mechanic123
-INSERT INTO Users (Login, PasswordHash, Role, EmployeeId, IsActive) VALUES
-(N'admin', N'$2a$11$7EjXqH5K5K5K5K5K5K5K5.5K5K5K5K5K5K5K5K5K5K5K5K5K5', N'Администратор', 1, 1),
-(N'master', N'$2a$11$7EjXqH5K5K5K5K5K5K5K5.5K5K5K5K5K5K5K5K5K5K5K5K5K5', N'Мастер', 2, 1),
-(N'mechanic', N'$2a$11$7EjXqH5K5K5K5K5K5K5K5.5K5K5K5K5K5K5K5K5K5K5K5K5K5', N'Механик', 3, 1),
-(N'accountant', N'$2a$11$7EjXqH5K5K5K5K5K5K5K5.5K5K5K5K5K5K5K5K5K5K5K5K5K5', N'Бухгалтер', 8, 1),
-(N'warehouse', N'$2a$11$7EjXqH5K5K5K5K5K5K5K5.5K5K5K5K5K5K5K5K5K5K5K5K5K5', N'Кладовщик', 7, 1);
+INSERT INTO Users (Login, Password, Role, EmployeeId, IsActive) VALUES
+(N'admin', N'admin123', N'Администратор', 1, 1),
+(N'master', N'master123', N'Мастер', 2, 1),
+(N'mechanic', N'mechanic123', N'Механик', 3, 1),
+(N'accountant', N'accountant123', N'Бухгалтер', 8, 1),
+(N'warehouse', N'warehouse123', N'Кладовщик', 7, 1);
 GO
 
 -- ============================================

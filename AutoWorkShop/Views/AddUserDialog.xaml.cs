@@ -1,8 +1,8 @@
 using System.Windows;
 using System.Windows.Controls;
-using AutoWorkshop.Services;
 using AutoWorkshop.Models;
 using System.Linq;
+using AutoWorkshop.Services;
 
 namespace AutoWorkshop.Views
 {
@@ -21,17 +21,14 @@ namespace AutoWorkshop.Views
             {
                 Title = "Редактирование пользователя";
                 LoginTextBox.Text = _editingUser.Login;
-
+                PasswordBox.Password = _editingUser.Password;
 
                 SetComboBoxSelectedIndex(RoleComboBox, _editingUser.Role);
-
 
                 if (_editingUser.EmployeeId.HasValue)
                 {
                     SetComboBoxSelectedIndex(EmployeeComboBox, _editingUser.EmployeeId.Value.ToString());
                 }
-
-                PasswordBox.Password = "********";
             }
             else
             {
@@ -113,17 +110,14 @@ namespace AutoWorkshop.Views
                 {
                     if (_editingUser != null)
                     {
-
                         _editingUser.Login = LoginTextBox.Text.Trim();
                         _editingUser.Role = selectedRoleItem.Tag.ToString()!;
-
 
                         if (!string.IsNullOrWhiteSpace(PasswordBox.Password) &&
                             PasswordBox.Password != "********")
                         {
-                            _editingUser.PasswordHash = PasswordHelper.HashPassword(PasswordBox.Password);
+                            _editingUser.Password = PasswordBox.Password;
                         }
-
 
                         if (EmployeeComboBox.SelectedItem is ComboBoxItem empItem &&
                             !string.IsNullOrEmpty(empItem.Tag?.ToString()))
@@ -139,8 +133,6 @@ namespace AutoWorkshop.Views
                     }
                     else
                     {
-
-
                         if (db.Users.Any(u => u.Login == LoginTextBox.Text.Trim()))
                         {
                             MessageBox.Show("Пользователь с таким логином уже существует!", "Ошибка",
@@ -151,11 +143,10 @@ namespace AutoWorkshop.Views
                         var newUser = new User
                         {
                             Login = LoginTextBox.Text.Trim(),
-                            PasswordHash = PasswordHelper.HashPassword(PasswordBox.Password),
+                            Password = PasswordBox.Password,
                             Role = selectedRoleItem.Tag.ToString()!,
                             IsActive = true
                         };
-
 
                         if (EmployeeComboBox.SelectedItem is ComboBoxItem empItem &&
                             !string.IsNullOrEmpty(empItem.Tag?.ToString()))

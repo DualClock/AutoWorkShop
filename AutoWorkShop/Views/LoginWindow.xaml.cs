@@ -26,7 +26,6 @@ namespace AutoWorkshop.Views
 
                 using (var db = new AppDbContext())
                 {
-
                     var canConnect = db.Database.CanConnect();
                     if (!canConnect)
                     {
@@ -46,15 +45,8 @@ namespace AutoWorkshop.Views
                             return;
                         }
 
-
-                        bool passwordValid = PasswordHelper.VerifyPassword(password, user.PasswordHash);
-
-
-                        bool legacyValid = user.PasswordHash == password;
-
-                        if (passwordValid || legacyValid)
+                        if (user.Password == password)
                         {
-
                             try
                             {
                                 user.LastLogin = DateTime.Now;

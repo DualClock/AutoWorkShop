@@ -5,9 +5,11 @@ namespace AutoWorkshop.Services
 {
     public static class UserRoles
     {
-        public const string Admin = "Admin";
-        public const string Manager = "Manager";
-        public const string Worker = "Worker";
+        public const string Admin = "Администратор";
+        public const string Manager = "Мастер";
+        public const string Worker = "Механик";
+        public const string Accountant = "Бухгалтер";
+        public const string Warehouse = "Кладовщик";
     }
 
     public class UserService
@@ -52,8 +54,10 @@ namespace AutoWorkshop.Services
             return role switch
             {
                 UserRoles.Admin => "Администратор",
-                UserRoles.Manager => "Менеджер",
-                UserRoles.Worker => "Рабочий",
+                UserRoles.Manager => "Мастер",
+                UserRoles.Worker => "Механик",
+                UserRoles.Accountant => "Бухгалтер",
+                UserRoles.Warehouse => "Кладовщик",
                 _ => role
             };
         }
